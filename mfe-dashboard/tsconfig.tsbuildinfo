@@ -1,0 +1,1 @@
+{"root":["./src/app.tsx","./src/dashboard.tsx","./src/main.tsx","./src/components/admissionschart.tsx","./src/components/departmentchart.tsx","./src/components/statcard.tsx","./src/mocks/browser.ts","./src/mocks/data.ts","./src/mocks/handlers.ts"],"version":"6.0.3"}

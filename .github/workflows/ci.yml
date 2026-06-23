@@ -1,0 +1,115 @@
+# The name shown in GitHub's Actions tab
+name: MedPanel CI
+
+# Triggers: run this pipeline on every push or pull request
+# targeting the main branch
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  # Job 1: Build and test shared-lib first
+  # Everything else depends on it so it runs independently
+  shared-lib:
+    name: Build shared-lib
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checks out your code into the runner
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Sets up the exact Node version we're using locally
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "npm"
+          cache-dependency-path: shared-lib/package-lock.json
+
+      - name: Install dependencies
+        working-directory: shared-lib
+        run: npm install
+
+      - name: Build shared-lib
+        working-directory: shared-lib
+        run: npm run build
+
+      # Uploads the dist/ folder as an artifact so other jobs
+      # can download and use it without rebuilding
+      - name: Upload shared-lib dist
+        uses: actions/upload-artifact@v4
+        with:
+          name: shared-lib-dist
+          path: shared-lib/dist
+
+  # Job 2: Test mfe-patients (our most tested MFE)
+  test-patients:
+    name: Test mfe-patients
+    runs-on: ubuntu-latest
+    # This job waits for shared-lib to finish before starting
+    needs: shared-lib
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "npm"
+          cache-dependency-path: mfe-patients/package-lock.json
+
+      # Download the shared-lib dist built in the previous job
+      - name: Download shared-lib dist
+        uses: actions/download-artifact@v4
+        with:
+          name: shared-lib-dist
+          path: shared-lib/dist
+
+      - name: Install dependencies
+        working-directory: mfe-patients
+        run: npm install
+
+      - name: Run tests
+        working-directory: mfe-patients
+        run: npm run test:run
+
+  # Job 3: Build all MFEs to verify they compile cleanly
+  build-mfes:
+    name: Build MFEs
+    runs-on: ubuntu-latest
+    needs: shared-lib
+    # Use a matrix to build all MFEs in parallel
+    # instead of writing a separate job for each one
+    strategy:
+      matrix:
+        mfe: [mfe-dashboard, mfe-patients, mfe-appointments, shell-app]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "npm"
+          cache-dependency-path: ${{ matrix.mfe }}/package-lock.json
+
+      - name: Download shared-lib dist
+        uses: actions/download-artifact@v4
+        with:
+          name: shared-lib-dist
+          path: shared-lib/dist
+
+      - name: Install dependencies
+        working-directory: ${{ matrix.mfe }}
+        run: npm install
+
+      - name: Build
+        working-directory: ${{ matrix.mfe }}
+        run: npm run build

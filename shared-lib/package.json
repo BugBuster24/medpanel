@@ -1,0 +1,29 @@
+{
+  "name": "shared-lib",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "./dist/index.mjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "vite build && tsc"
+  },
+  "peerDependencies": {
+    "react": "^18.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^25.7.0",
+    "@types/react": "^18.0.0",
+    "typescript": "^5.0.0",
+    "vite": "^5.0.0"
+  },
+  "dependencies": {
+    "react": "^18.0.0"
+  }
+}
