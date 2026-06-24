@@ -1,4 +1,4 @@
-import { Appointment } from "shared-lib";
+import { Appointment } from "@hareharun/medpanel-shared";
 
 export let mockAppointments: Appointment[] = [
   {

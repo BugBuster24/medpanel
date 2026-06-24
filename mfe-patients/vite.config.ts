@@ -16,7 +16,6 @@ export default defineConfig({
   ],
   resolve: {
     alias: {
-      "shared-lib": path.resolve(__dirname, "../shared-lib/dist/index.mjs"),
       react: path.resolve(__dirname, "node_modules/react"),
       "react-dom": path.resolve(__dirname, "node_modules/react-dom"),
     },

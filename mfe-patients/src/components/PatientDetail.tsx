@@ -1,6 +1,6 @@
 import React from "react";
-import { Patient } from "shared-lib";
-import { Card, Button } from "shared-lib";
+import { Patient } from "@hareharun/medpanel-shared";
+import { Card, Button } from "@hareharun/medpanel-shared";
 
 interface PatientDetailProps {
   patient: Patient;

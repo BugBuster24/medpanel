@@ -1,4 +1,4 @@
-import { Patient } from "shared-lib";
+import { Patient } from "@hareharun/medpanel-shared";
 
 export const mockPatients: Patient[] = [
   {

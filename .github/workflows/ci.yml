@@ -7,39 +7,9 @@ on:
     branches: [main]
 
 jobs:
-  shared-lib:
-    name: Build shared-lib
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: "24"
-          cache: "npm"
-          cache-dependency-path: shared-lib/package-lock.json
-
-      - name: Install dependencies
-        working-directory: shared-lib
-        run: npm install
-
-      - name: Build shared-lib
-        working-directory: shared-lib
-        run: npm run build
-
-      - name: Upload shared-lib dist
-        uses: actions/upload-artifact@v4
-        with:
-          name: shared-lib-dist
-          path: shared-lib/dist
-
   test-patients:
     name: Test mfe-patients
     runs-on: ubuntu-latest
-    needs: shared-lib
 
     steps:
       - name: Checkout code
@@ -51,16 +21,13 @@ jobs:
           node-version: "24"
           cache: "npm"
           cache-dependency-path: mfe-patients/package-lock.json
-
-      - name: Download shared-lib dist
-        uses: actions/download-artifact@v4
-        with:
-          name: shared-lib-dist
-          path: shared-lib/dist
+          registry-url: "https://registry.npmjs.org"
 
       - name: Install dependencies
         working-directory: mfe-patients
         run: npm install
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Run tests
         working-directory: mfe-patients
@@ -69,10 +36,7 @@ jobs:
   build-mfes:
     name: Build MFEs
     runs-on: ubuntu-latest
-    needs: shared-lib
     strategy:
-      # Without this, if shell-app fails it cancels the other MFE builds.
-      # Setting false lets all matrix jobs run to completion independently.
       fail-fast: false
       matrix:
         mfe: [mfe-dashboard, mfe-patients, mfe-appointments, shell-app]
@@ -87,17 +51,18 @@ jobs:
           node-version: "24"
           cache: "npm"
           cache-dependency-path: ${{ matrix.mfe }}/package-lock.json
-
-      - name: Download shared-lib dist
-        uses: actions/download-artifact@v4
-        with:
-          name: shared-lib-dist
-          path: shared-lib/dist
+          registry-url: "https://registry.npmjs.org"
 
       - name: Install dependencies
         working-directory: ${{ matrix.mfe }}
         run: npm install
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Build
         working-directory: ${{ matrix.mfe }}
         run: npm run build
+        env:
+          VITE_DASHBOARD_URL: https://medpanel-dashboard.vercel.app
+          VITE_PATIENTS_URL: https://medpanel-patients.vercel.app
+          VITE_APPOINTMENTS_URL: https://medpanel-appointments.vercel.app

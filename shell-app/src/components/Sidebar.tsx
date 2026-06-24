@@ -1,6 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { useAuth, useTenant } from "shared-lib";
+import { useAuth, useTenant } from "@hareharun/medpanel-shared";
 
 const linkStyle = ({
   isActive,

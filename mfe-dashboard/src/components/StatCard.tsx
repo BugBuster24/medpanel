@@ -1,5 +1,5 @@
 import React from "react";
-import { Card } from "shared-lib";
+import { Card } from "@hareharun/medpanel-shared";
 
 interface StatCardProps {
   title: string;

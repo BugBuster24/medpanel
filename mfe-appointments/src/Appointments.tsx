@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { Appointment, AppointmentStatus } from "shared-lib";
+import { Appointment, AppointmentStatus } from "@hareharun/medpanel-shared";
 import { AppointmentTable } from "./components/AppointmentTable";
 import { mockAppointments } from "./mocks/data";
 

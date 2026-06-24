@@ -8,7 +8,7 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
-import { Card } from "shared-lib";
+import { Card } from "@hareharun/medpanel-shared";
 
 interface AdmissionsChartProps {
   data: { month: string; admissions: number }[];

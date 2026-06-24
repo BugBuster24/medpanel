@@ -1,5 +1,5 @@
 import React from "react";
-import { useAuth, useTenant, MOCK_USERS } from "shared-lib";
+import { useAuth, useTenant, MOCK_USERS } from "@hareharun/medpanel-shared";
 
 export const TopBar: React.FC = () => {
   const { currentUser, login } = useAuth();

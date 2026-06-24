@@ -1,4 +1,8 @@
-import { Patient, Appointment, DashboardStats } from "shared-lib";
+import {
+  Patient,
+  Appointment,
+  DashboardStats,
+} from "@hareharun/medpanel-shared";
 
 export const mockStats: DashboardStats = {
   totalPatients: 1284,

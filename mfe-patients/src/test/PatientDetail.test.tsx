@@ -2,7 +2,7 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { PatientDetail } from "../components/PatientDetail";
-import { Patient } from "shared-lib";
+import { Patient } from "@hareharun/medpanel-shared";
 
 const mockPatient: Patient = {
   id: "p1",

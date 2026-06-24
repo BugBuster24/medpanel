@@ -7,7 +7,7 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts";
-import { Card } from "shared-lib";
+import { Card } from "@hareharun/medpanel-shared";
 
 interface DepartmentChartProps {
   data: { name: string; value: number }[];

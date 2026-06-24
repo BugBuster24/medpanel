@@ -1,5 +1,10 @@
 import React from "react";
-import { Appointment, AppointmentStatus, Badge, Button } from "shared-lib";
+import {
+  Appointment,
+  AppointmentStatus,
+  Badge,
+  Button,
+} from "@hareharun/medpanel-shared";
 
 interface AppointmentTableProps {
   appointments: Appointment[];

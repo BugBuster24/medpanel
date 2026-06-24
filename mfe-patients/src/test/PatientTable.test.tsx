@@ -2,7 +2,7 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { PatientTable } from "../components/PatientTable";
-import { Patient } from "shared-lib";
+import { Patient } from "@hareharun/medpanel-shared";
 
 // Mock data for tests — a small subset is enough.
 // Tests should be fast and focused, not depend on large datasets.

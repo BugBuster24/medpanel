@@ -1,6 +1,6 @@
 import React from "react";
-import { Patient } from "shared-lib";
-import { Button } from "shared-lib";
+import { Patient } from "@hareharun/medpanel-shared";
+import { Button } from "@hareharun/medpanel-shared";
 
 interface PatientTableProps {
   patients: Patient[];

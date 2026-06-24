@@ -1,6 +1,6 @@
 import { http, HttpResponse } from "msw";
 import { mockAppointments } from "./data";
-import { AppointmentStatus } from "shared-lib";
+import { AppointmentStatus } from "@hareharun/medpanel-shared";
 
 export const handlers = [
   http.get("/api/appointments", () => {

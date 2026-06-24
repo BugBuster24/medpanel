@@ -13,16 +13,18 @@ export default defineConfig({
       // The key is the module name used in import statements.
       // The value is the URL to the remoteEntry file.
       remotes: {
-        mfe_dashboard: "http://localhost:5001/assets/remoteEntry.js",
-        mfe_patients: "http://localhost:5002/assets/remoteEntry.js",
-        mfe_appointments: "http://localhost:5003/assets/remoteEntry.js",
+        mfe_dashboard:
+          "https://medpanel-dashboard.vercel.app/assets/remoteEntry.js",
+        mfe_patients:
+          "https://medpanel-patients.vercel.app/assets/remoteEntry.js",
+        mfe_appointments:
+          "https://medpanel-appointments.vercel.app/assets/remoteEntry.js",
       },
       shared: ["react", "react-dom", "@tanstack/react-query", "recharts"],
     }),
   ],
   resolve: {
     alias: {
-      "shared-lib": path.resolve(__dirname, "../shared-lib/dist/index.mjs"),
       react: path.resolve(__dirname, "node_modules/react"),
       "react-dom": path.resolve(__dirname, "node_modules/react-dom"),
     },

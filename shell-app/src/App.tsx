@@ -1,7 +1,11 @@
 import React from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { TenantProvider, AuthProvider, useAuth } from "shared-lib";
+import {
+  TenantProvider,
+  AuthProvider,
+  useAuth,
+} from "@hareharun/medpanel-shared";
 import { Sidebar } from "./components/Sidebar";
 import { TopBar } from "./components/TopBar";
 import { MFELoader } from "./components/MFELoader";
